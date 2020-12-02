@@ -12,12 +12,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipesapp.R
 import com.example.recipesapp.RecipesListAdapter
+import com.example.recipesapp.TAG
 import com.example.recipesapp.databinding.MainFragmentBinding
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(),
+    //implement interface
+    RecipesListAdapter.ListItemListener {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: MainFragmentBinding
+
     //reference to adapter
     private lateinit var adapter: RecipesListAdapter
 
@@ -38,15 +42,22 @@ class MainFragment : Fragment() {
 
         viewModel.recipesList.observe(viewLifecycleOwner, Observer {
             // initialize adapter
-            adapter = RecipesListAdapter(it)
+            adapter = RecipesListAdapter(
+                it,
+                this@MainFragment
+            ) // Pass reference to the fragment as listener
             // pass adapter object to recycler view
-            binding.recyclerView.adapter= adapter
+            binding.recyclerView.adapter = adapter
             // tell recycler view if its a list or a grid
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-
         })
 
         return binding.root
+    }
+
+    override fun onItemClick(recipeId: Int) {
+        // receive recipe id
+        Log.i(TAG, "onItemClick: RECEIVED RECIPE ID $recipeId")
     }
 
 }

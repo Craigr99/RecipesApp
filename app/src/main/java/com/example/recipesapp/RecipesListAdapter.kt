@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipesapp.data.RecipeEntity
 import com.example.recipesapp.databinding.ListItemBinding
 
-class RecipesListAdapter(private val recipesList: List<RecipeEntity>) :
+class RecipesListAdapter(private val recipesList: List<RecipeEntity>,
+ private val listener: ListItemListener) :
+
     RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) :
@@ -27,7 +29,18 @@ class RecipesListAdapter(private val recipesList: List<RecipeEntity>) :
         val recipe  = recipesList[position]
         with(holder.binding) {
             recipeText.text = recipe.name
+            root.setOnClickListener{
+                // Notify listener class that user has clicked on this note
+                listener.onItemClick(recipe.id)
+            }
         }
+    }
+
+    //Handle click event
+    // create interface
+    interface ListItemListener {
+        // call this from listener object - pass current recipe id
+        fun onItemClick(recipeId: Int)
     }
 
 }
