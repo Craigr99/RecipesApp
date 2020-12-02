@@ -11,12 +11,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipesapp.R
+import com.example.recipesapp.RecipesListAdapter
 import com.example.recipesapp.databinding.MainFragmentBinding
 
 class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: MainFragmentBinding
+    //reference to adapter
+    private lateinit var adapter: RecipesListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +37,13 @@ class MainFragment : Fragment() {
         }
 
         viewModel.recipesList.observe(viewLifecycleOwner, Observer {
-            Log.i("recipeLogging", it.toString())
+            // initialize adapter
+            adapter = RecipesListAdapter(it)
+            // pass adapter object to recycler view
+            binding.recyclerView.adapter= adapter
+            // tell recycler view if its a list or a grid
+            binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+
         })
 
         return binding.root
