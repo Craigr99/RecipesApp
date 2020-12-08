@@ -1,9 +1,13 @@
 package com.example.recipesapp.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.recipesapp.NEW_NOTE_ID
 import java.util.*
 
+@Entity(tableName = "recipes")
 data class RecipeEntity(
+    @PrimaryKey(autoGenerate = true)
     var id: Int,
     var name: String,
     var description: String,
