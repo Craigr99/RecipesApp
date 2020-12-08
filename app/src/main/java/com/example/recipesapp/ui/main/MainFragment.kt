@@ -5,9 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipesapp.R
@@ -29,6 +31,9 @@ class MainFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // hide back button in main fragment
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
         binding = MainFragmentBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -58,6 +63,9 @@ class MainFragment : Fragment(),
     override fun onItemClick(recipeId: Int) {
         // receive recipe id
         Log.i(TAG, "onItemClick: RECEIVED RECIPE ID $recipeId")
+        val action = MainFragmentDirections.actionEditRecipe(recipeId)
+        // get reference to nav host
+        findNavController().navigate(action)
     }
 
 }
