@@ -24,4 +24,8 @@ interface RecipeDao {
     // Get recipe by ID
     @Query("SELECT * FROM recipes WHERE id = :id")
     fun getRecipeById(id: Int): RecipeEntity?
+
+    // Get number of rows
+    @Query("SELECT COUNT(*) from recipes")
+    fun getCount(): Int
 }
