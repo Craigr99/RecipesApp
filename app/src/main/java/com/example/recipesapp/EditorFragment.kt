@@ -36,6 +36,14 @@ class EditorFragment : Fragment() {
         }
         setHasOptionsMenu(true)
 
+        // set title of activity
+        requireActivity().title =
+            if (args.recipeId == NEW_RECIPE_ID) {
+                getString(R.string.new_recipe)
+            } else {
+                getString(R.string.edit_recipe)
+            }
+
         viewModel = ViewModelProvider(this).get(EditorViewModel::class.java)
 
         // initialize binding

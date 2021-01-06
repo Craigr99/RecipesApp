@@ -12,9 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.recipesapp.R
-import com.example.recipesapp.RecipesListAdapter
-import com.example.recipesapp.TAG
+import com.example.recipesapp.*
 import com.example.recipesapp.databinding.MainFragmentBinding
 
 class MainFragment : Fragment(),
@@ -35,6 +33,9 @@ class MainFragment : Fragment(),
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         //Use options menu
         setHasOptionsMenu(true)
+
+        // Set title of activity
+        requireActivity().title = getString(R.string.app_name)
 
         binding = MainFragmentBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -58,6 +59,10 @@ class MainFragment : Fragment(),
             // tell recycler view if its a list or a grid
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         })
+
+        binding.floatingActionButton.setOnClickListener {
+            editNote(NEW_RECIPE_ID)
+        }
 
         return binding.root
     }
@@ -106,7 +111,7 @@ class MainFragment : Fragment(),
         return true
     }
 
-    override fun onItemClick(recipeId: Int) {
+    override fun editNote(recipeId: Int) {
         // receive recipe id
         Log.i(TAG, "onItemClick: RECEIVED RECIPE ID $recipeId")
         val action = MainFragmentDirections.actionEditRecipe(recipeId)

@@ -2,7 +2,8 @@ package com.example.recipesapp.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.recipesapp.NEW_NOTE_ID
+import com.example.recipesapp.NEW_RECIPE_ID
+import com.example.recipesapp.NEW_RECIPE_ID
 import java.util.*
 
 @Entity(tableName = "recipes")
@@ -17,7 +18,7 @@ data class RecipeEntity(
     var date: Date,
     var time: Int
 ) {
-    constructor() : this(NEW_NOTE_ID, "", "", "", 0, 0, Date(), 0)
+    constructor() : this(NEW_RECIPE_ID, "", "", "", 0, 0, Date(), 0)
     constructor(
         name: String,
         description: String,
@@ -26,5 +27,5 @@ data class RecipeEntity(
         quality: Int,
         date: Date,
         time: Int
-    ) : this(NEW_NOTE_ID, name, description, steps, difficulty, quality, date, time)
+    ) : this(NEW_RECIPE_ID, name, description, steps, difficulty, quality, date, time)
 }

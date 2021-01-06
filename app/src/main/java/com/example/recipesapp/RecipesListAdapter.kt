@@ -34,7 +34,7 @@ class RecipesListAdapter(
             recipeText.text = recipe.name
             root.setOnClickListener {
                 // Notify listener class that user has clicked on this note
-                listener.onItemClick(recipe.id)
+                listener.editNote(recipe.id)
             }
             // Set click listener for FAB
             fab.setOnClickListener {
@@ -65,7 +65,7 @@ class RecipesListAdapter(
 // create interface
     interface ListItemListener {
         // call this from listener object - pass current recipe id
-        fun onItemClick(recipeId: Int)
+        fun editNote(recipeId: Int)
 
         // Notify fragment that something has been selected
         fun onItemSelectionChanged()

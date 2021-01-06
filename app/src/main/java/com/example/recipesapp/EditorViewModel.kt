@@ -21,7 +21,7 @@ class EditorViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val recipe =
-                    if (recipeId != NEW_NOTE_ID) {
+                    if (recipeId != NEW_RECIPE_ID) {
                         database?.recipeDao()?.getRecipeById(recipeId)
                     } else {
                         // Create new instance of recipe class
@@ -37,7 +37,7 @@ class EditorViewModel(app: Application) : AndroidViewModel(app) {
         currentRecipe.value?.let {
             //trim text value
             it.name = it.name.trim()
-            if (it.id == NEW_NOTE_ID && it.name.isEmpty()) {
+            if (it.id == NEW_RECIPE_ID && it.name.isEmpty()) {
                 return
             }
 
