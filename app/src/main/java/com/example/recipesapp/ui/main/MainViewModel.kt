@@ -29,4 +29,22 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
             }
         }
     }
+
+    fun deleteRecipes(selectedRecipes: List<RecipeEntity>) {
+        viewModelScope.launch {
+            // run code in a background thread
+            withContext(Dispatchers.IO) {
+                // Delete selected recipes
+                database?.recipeDao()?.deleteRecipes(selectedRecipes)
+            }
+        }
+    }
+
+    fun deleteAllRecipes() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                database?.recipeDao()?.deleteAll()
+            }
+        }
+    }
 }

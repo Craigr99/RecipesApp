@@ -1,10 +1,7 @@
 package com.example.recipesapp.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface RecipeDao {
@@ -28,4 +25,12 @@ interface RecipeDao {
     // Get number of rows
     @Query("SELECT COUNT(*) from recipes")
     fun getCount(): Int
+
+    // Delete recipes
+    @Delete
+    fun deleteRecipes(selectedRecipes: List<RecipeEntity>) : Int
+
+    // Delete all recipes
+    @Query("DELETE FROM recipes")
+    fun deleteAll():Int
 }

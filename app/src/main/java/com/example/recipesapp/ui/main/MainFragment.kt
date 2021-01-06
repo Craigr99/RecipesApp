@@ -1,6 +1,8 @@
 package com.example.recipesapp.ui.main
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -62,7 +64,15 @@ class MainFragment : Fragment(),
 
     // Init options menu
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
+        val menuId =
+            // If the adapter is initialized + selected notes list is not empty
+            if (this::adapter.isInitialized && adapter.selectedRecipes.isNotEmpty()) {
+                R.menu.menu_main_selected_items
+            } else {
+                R.menu.menu_main
+            }
+
+        inflater.inflate(menuId, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -70,8 +80,25 @@ class MainFragment : Fragment(),
         return when (item.itemId) {
             // Look for menu item
             R.id.action_sample_data -> addSampleData()
+            R.id.action_delete -> deleteSelectedRecipes()
+            R.id.action_delete_all -> deleteAllRecipes()
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun deleteAllRecipes(): Boolean {
+        viewModel.deleteAllRecipes()
+        return true
+    }
+
+    private fun deleteSelectedRecipes(): Boolean {
+        viewModel.deleteRecipes(adapter.selectedRecipes)
+        // Reset the menu to original state
+        Handler(Looper.getMainLooper()).postDelayed({
+            adapter.selectedRecipes.clear()
+            requireActivity().invalidateOptionsMenu()
+        }, 100)
+        return true
     }
 
     private fun addSampleData(): Boolean {
@@ -85,6 +112,11 @@ class MainFragment : Fragment(),
         val action = MainFragmentDirections.actionEditRecipe(recipeId)
         // get reference to nav host
         findNavController().navigate(action)
+    }
+
+    override fun onItemSelectionChanged() {
+        // Reset options menu
+        requireActivity().invalidateOptionsMenu()
     }
 
 }
