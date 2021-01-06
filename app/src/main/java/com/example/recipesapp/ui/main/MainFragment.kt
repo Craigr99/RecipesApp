@@ -2,9 +2,7 @@ package com.example.recipesapp.ui.main
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -33,6 +31,8 @@ class MainFragment : Fragment(),
     ): View {
         // hide back button in main fragment
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        //Use options menu
+        setHasOptionsMenu(true)
 
         binding = MainFragmentBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -45,7 +45,7 @@ class MainFragment : Fragment(),
             addItemDecoration(divider)
         }
 
-        viewModel.recipesList.observe(viewLifecycleOwner, Observer {
+        viewModel.recipesList?.observe(viewLifecycleOwner, Observer {
             // initialize adapter
             adapter = RecipesListAdapter(
                 it,
@@ -58,6 +58,25 @@ class MainFragment : Fragment(),
         })
 
         return binding.root
+    }
+
+    // Init options menu
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            // Look for menu item
+            R.id.action_sample_data -> addSampleData()
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun addSampleData(): Boolean {
+        viewModel.addSampleData()
+        return true
     }
 
     override fun onItemClick(recipeId: Int) {

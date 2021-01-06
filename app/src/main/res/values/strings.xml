@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RecipesApp</string>
+    <string name="add_sample_data">Add sample data</string>
 </resources>

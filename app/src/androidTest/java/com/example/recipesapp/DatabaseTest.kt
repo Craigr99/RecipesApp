@@ -5,6 +5,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.recipesapp.data.AppDatabase
 import com.example.recipesapp.data.RecipeDao
+import com.example.recipesapp.data.RecipeEntity
 import com.example.recipesapp.data.SampleDataProvider
 import org.junit.After
 
@@ -36,6 +37,15 @@ class DatabaseTest {
         dao.insertAll(SampleDataProvider.getRecipes())
         val count = dao.getCount()
         assertEquals(count, SampleDataProvider.getRecipes().size)
+    }
+
+    @Test
+    fun insertRecipe() {
+        val recipe = RecipeEntity()
+        recipe.name = "Example title"
+        dao.insertRecipe(recipe)
+        val savedRecipe = dao.getRecipeById(1)
+        assertEquals(savedRecipe?.id ?: 0, 1)
     }
 
     @After
