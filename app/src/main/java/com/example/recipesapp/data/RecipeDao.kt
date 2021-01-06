@@ -33,4 +33,7 @@ interface RecipeDao {
     // Delete all recipes
     @Query("DELETE FROM recipes")
     fun deleteAll():Int
+
+    @Delete
+    fun deleteRecipe(recipe: RecipeEntity)
 }
