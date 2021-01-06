@@ -63,7 +63,11 @@ class EditorFragment : Fragment() {
         )
 
         viewModel.currentRecipe.observe(viewLifecycleOwner, Observer {
-            binding.editor.setText(it.name)
+            // get state values
+            val savedString = savedInstanceState?.getString(RECIPE_TEXT_KEY)
+            val cursorPosition = savedInstanceState?.getInt(CURSOR_POSITION_KEY) ?: 0
+            binding.editor.setText(savedString ?: it.name)
+            binding.editor.setSelection(cursorPosition)
         })
         viewModel.getRecipeById(args.recipeId)
 
@@ -90,6 +94,14 @@ class EditorFragment : Fragment() {
 
         findNavController().navigateUp() // Go back to main fragment
         return true
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        with(binding.editor) {
+            outState.putString(RECIPE_TEXT_KEY, text.toString())
+            outState.putInt(CURSOR_POSITION_KEY, selectionStart)
+        }
+        super.onSaveInstanceState(outState)
     }
 
 }

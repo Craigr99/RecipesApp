@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipesapp.*
+import com.example.recipesapp.data.RecipeEntity
 import com.example.recipesapp.databinding.MainFragmentBinding
 
 class MainFragment : Fragment(),
@@ -58,6 +59,10 @@ class MainFragment : Fragment(),
             binding.recyclerView.adapter = adapter
             // tell recycler view if its a list or a grid
             binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+
+            val selectedRecipes =
+                savedInstanceState?.getParcelableArrayList<RecipeEntity>(SELECTED_RECIPES_KEY)
+            adapter.selectedRecipes.addAll(selectedRecipes ?: emptyList())
         })
 
         binding.floatingActionButton.setOnClickListener {
@@ -122,6 +127,16 @@ class MainFragment : Fragment(),
     override fun onItemSelectionChanged() {
         // Reset options menu
         requireActivity().invalidateOptionsMenu()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        if (this::adapter.isInitialized) {
+            outState.putParcelableArrayList(
+                SELECTED_RECIPES_KEY,
+                adapter.selectedRecipes
+            )
+        }
+        super.onSaveInstanceState(outState)
     }
 
 }
