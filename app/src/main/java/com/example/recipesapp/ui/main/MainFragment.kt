@@ -66,7 +66,7 @@ class MainFragment : Fragment(),
         })
 
         binding.floatingActionButton.setOnClickListener {
-            editNote(NEW_RECIPE_ID)
+            editRecipe(NEW_RECIPE_ID)
         }
 
         return binding.root
@@ -116,7 +116,7 @@ class MainFragment : Fragment(),
         return true
     }
 
-    override fun editNote(recipeId: Int) {
+    override fun editRecipe(recipeId: Int) {
         // receive recipe id
         Log.i(TAG, "onItemClick: RECEIVED RECIPE ID $recipeId")
         val action = MainFragmentDirections.actionEditRecipe(recipeId)

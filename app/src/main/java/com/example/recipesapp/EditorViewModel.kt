@@ -35,16 +35,17 @@ class EditorViewModel(app: Application) : AndroidViewModel(app) {
     fun updateRecipe() {
         // use current recipe name value
         currentRecipe.value?.let {
-            //trim text value
+            //trim text values
             it.name = it.name.trim()
-            if (it.id == NEW_RECIPE_ID && it.name.isEmpty()) {
+            it.description = it.description.trim()
+            if (it.id == NEW_RECIPE_ID && it.name.isEmpty() && it.description.isEmpty()) {
                 return
             }
 
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
-                    // if name is empty, delete. else insert
-                    if (it.name.isEmpty()) {
+                    // if all values are empty, delete. else insert
+                    if (it.name.isEmpty() && it.description.isEmpty()) {
                         database?.recipeDao()?.deleteRecipe(it)
                     } else {
                         database?.recipeDao()?.insertRecipe(it)

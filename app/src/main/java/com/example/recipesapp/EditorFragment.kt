@@ -49,7 +49,7 @@ class EditorFragment : Fragment() {
         // initialize binding
         binding = EditorFragmentBinding.inflate(inflater, container, false)
         //update the text view
-        binding.editor.setText("")
+        binding.editName.setText("")
 
         // Handle back gestures from users
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -66,8 +66,10 @@ class EditorFragment : Fragment() {
             // get state values
             val savedString = savedInstanceState?.getString(RECIPE_TEXT_KEY)
             val cursorPosition = savedInstanceState?.getInt(CURSOR_POSITION_KEY) ?: 0
-            binding.editor.setText(savedString ?: it.name)
-            binding.editor.setSelection(cursorPosition)
+            //set recipe name
+            binding.editName.setText(savedString ?: it.name)
+            binding.editDesc.setText(it.description)
+            binding.editName.setSelection(cursorPosition)
         })
         viewModel.getRecipeById(args.recipeId)
 
@@ -89,7 +91,9 @@ class EditorFragment : Fragment() {
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
 
         // Get text value user has typed
-        viewModel.currentRecipe.value?.name = binding.editor.text.toString()
+        viewModel.currentRecipe.value?.name = binding.editName.text.toString()
+        viewModel.currentRecipe.value?.description = binding.editDesc.text.toString()
+        // call updateRecipe() in view model
         viewModel.updateRecipe()
 
         findNavController().navigateUp() // Go back to main fragment
@@ -97,7 +101,7 @@ class EditorFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        with(binding.editor) {
+        with(binding.editName) {
             outState.putString(RECIPE_TEXT_KEY, text.toString())
             outState.putInt(CURSOR_POSITION_KEY, selectionStart)
         }
