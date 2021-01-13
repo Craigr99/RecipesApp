@@ -31,7 +31,10 @@ class RecipesListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val recipe = recipesList[position]
         with(holder.binding) {
-            recipeText.text = recipe.name
+            recipeText.text = recipe.name // set recipeText in list item to the actual text
+            difficultyText.text = recipe.difficulty.toString() + "/10"
+            qualityText.text = recipe.quality.toString() + "/10"
+            
             root.setOnClickListener {
                 // Notify listener class that user has clicked on this note
                 listener.editRecipe(recipe.id)

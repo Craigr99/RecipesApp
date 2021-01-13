@@ -17,7 +17,9 @@ class EditorViewModel(app: Application) : AndroidViewModel(app) {
     // Reference the current selected recipe
     val currentRecipe = MutableLiveData<RecipeEntity>()
 
+    // get recipe by ID
     fun getRecipeById(recipeId: Int) {
+        // start background thread
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val recipe =

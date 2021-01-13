@@ -6,4 +6,7 @@
     <string name="new_recipe">New Recipe</string>
     <string name="edit_recipe">Edit Recipe</string>
     <string name="enter_recipe_name">Enter recipe name</string>
+    <string name="difficulty">Difficulty:</string>
+    <string name="_5">5</string>
+    <string name="quality">Quality:</string>
 </resources>

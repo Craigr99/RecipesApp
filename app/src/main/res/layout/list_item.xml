@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -11,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:clickable="true"
+        android:contentDescription="TODO"
         android:focusable="true"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,12 +26,69 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/fab"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Some text to display during design" />
+        app:layout_constraintVertical_bias="0.35"
+        tools:text="Recipe name" />
+
+    <TextView
+        android:id="@+id/difficulty_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/difficulty"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fab"
+        app:layout_constraintTop_toBottomOf="@+id/recipeText" />
+
+    <TextView
+        android:id="@+id/difficultyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/difficulty_heading"
+        app:layout_constraintTop_toBottomOf="@+id/recipeText"
+        tools:text="@string/_5" />
+
+    <TextView
+        android:id="@+id/quality_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/quality"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/difficultyText"
+        app:layout_constraintTop_toBottomOf="@+id/recipeText" />
+
+    <TextView
+        android:id="@+id/qualityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/quality_heading"
+        app:layout_constraintTop_toBottomOf="@+id/recipeText"
+        tools:text="8" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
