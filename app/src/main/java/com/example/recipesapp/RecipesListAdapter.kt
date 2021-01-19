@@ -32,8 +32,8 @@ class RecipesListAdapter(
         val recipe = recipesList[position]
         with(holder.binding) {
             recipeText.text = recipe.name // set recipeText in list item to the actual text
-            difficultyText.text = recipe.difficulty.toString() + "/10"
-            qualityText.text = recipe.quality.toString() + "/10"
+            difficultyText.text = recipe.difficulty + "/10"
+            qualityText.text = recipe.quality + "/10"
             
             root.setOnClickListener {
                 // Notify listener class that user has clicked on this note

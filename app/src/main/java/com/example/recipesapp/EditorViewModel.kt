@@ -40,17 +40,17 @@ class EditorViewModel(app: Application) : AndroidViewModel(app) {
             //trim text values
             it.name = it.name.trim()
             it.description = it.description.trim()
-            it.difficulty = it.difficulty
-            it.quality = it.quality
+            it.difficulty = it.difficulty.trim()
+            it.quality = it.quality.trim()
 
-            if (it.id == NEW_RECIPE_ID && it.name.isEmpty() && it.description.isEmpty() && it.difficulty <= 0  && it.quality <= 0) {
+            if (it.id == NEW_RECIPE_ID && it.name.isEmpty() && it.description.isEmpty() && it.difficulty.isEmpty()  && it.quality.isEmpty()) {
                 return
             }
 
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
                     // if all values are empty, delete. else insert
-                    if (it.name.isEmpty() && it.description.isEmpty() && it.difficulty <= 0 && it.quality <= 0) {
+                    if (it.name.isEmpty() && it.description.isEmpty() && it.difficulty.isEmpty() && it.quality.isEmpty()) {
                         database?.recipeDao()?.deleteRecipe(it)
                     } else {
                         database?.recipeDao()?.insertRecipe(it)

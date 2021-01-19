@@ -69,8 +69,8 @@ class EditorFragment : Fragment() {
             //set recipe values:
             binding.editName.setText(savedString ?: it.name)
             binding.editDesc.setText(it.description)
-            binding.editDifficulty.setText(Integer.toString(it.difficulty)) // using Integer.toString for integer values
-            binding.editQuality.setText(Integer.toString(it.quality))
+            binding.editDifficulty.setText(it.difficulty)
+            binding.editQuality.setText(it.quality)
             binding.editName.setSelection(cursorPosition)
         })
         viewModel.getRecipeById(args.recipeId)
@@ -95,8 +95,8 @@ class EditorFragment : Fragment() {
         // Get text value user has typed
         viewModel.currentRecipe.value?.name = binding.editName.text.toString()
         viewModel.currentRecipe.value?.description = binding.editDesc.text.toString()
-        viewModel.currentRecipe.value?.difficulty = Integer.parseInt(binding.editDifficulty.text.toString())
-        viewModel.currentRecipe.value?.quality = Integer.parseInt(binding.editQuality.text.toString())
+        viewModel.currentRecipe.value?.difficulty = binding.editDifficulty.text.toString()
+        viewModel.currentRecipe.value?.quality = binding.editQuality.text.toString()
         // call updateRecipe() in view model
         viewModel.updateRecipe()
 

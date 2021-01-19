@@ -16,18 +16,18 @@ data class RecipeEntity(
     var name: String,
     var description: String,
     var steps: String,
-    var difficulty: Int,
-    var quality: Int,
+    var difficulty: String,
+    var quality: String,
     var date: Date,
     var time: Int
 ) : Parcelable {
-    constructor() : this(NEW_RECIPE_ID, "", "", "", 0, 0, Date(), 0)
+    constructor() : this(NEW_RECIPE_ID, "", "", "", "", "",  Date(), 0)
     constructor(
         name: String,
         description: String,
         steps: String,
-        difficulty: Int,
-        quality: Int,
+        difficulty: String,
+        quality: String,
         date: Date,
         time: Int
     ) : this(NEW_RECIPE_ID, name, description, steps, difficulty, quality, date, time)

@@ -18,10 +18,10 @@ class SampleDataProvider {
         }
 
         fun getRecipes() = arrayListOf(
-            RecipeEntity( sampleName1, "description1", "steps", 5, 8, getDate(0), 25),
-            RecipeEntity( sampleName2, "description2", "steps", 4, 10, getDate(2), 55),
-            RecipeEntity( sampleName3, "description3", "steps", 7, 5, getDate(3), 17),
-            RecipeEntity( sampleName4, "description4", "steps", 7, 5, getDate(4), 17),
+            RecipeEntity( sampleName1, "description1", "steps", "5", "8", getDate(0), 25),
+            RecipeEntity( sampleName2, "description2", "steps", "4", "10", getDate(2), 55),
+            RecipeEntity( sampleName3, "description3", "steps", "7", "5", getDate(3), 17),
+            RecipeEntity( sampleName4, "description4", "steps", "7", "5", getDate(4), 17),
         )
 
     }
