@@ -23,10 +23,11 @@ class EditorViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val recipe =
+                    // if recipeId not null, call getRecipeById
                     if (recipeId != NEW_RECIPE_ID) {
                         database?.recipeDao()?.getRecipeById(recipeId)
                     } else {
-                        // Create new instance of recipe class
+                        // Create new instance of the recipe class
                         RecipeEntity()
                     }
                 currentRecipe.postValue(recipe)
@@ -35,7 +36,7 @@ class EditorViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun updateRecipe() {
-        // use current recipe name value
+        // use current recipe value
         currentRecipe.value?.let {
             //trim text values
             it.name = it.name.trim()
@@ -43,13 +44,14 @@ class EditorViewModel(app: Application) : AndroidViewModel(app) {
             it.difficulty = it.difficulty.trim()
             it.quality = it.quality.trim()
 
+            // If there is no recipe found, return
             if (it.id == NEW_RECIPE_ID && it.name.isEmpty() && it.description.isEmpty() && it.difficulty.isEmpty()  && it.quality.isEmpty()) {
                 return
             }
 
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
-                    // if all values are empty, delete. else insert
+                    // if all values are empty, delete recipe. else insert new recipe
                     if (it.name.isEmpty() && it.description.isEmpty() && it.difficulty.isEmpty() && it.quality.isEmpty()) {
                         database?.recipeDao()?.deleteRecipe(it)
                     } else {

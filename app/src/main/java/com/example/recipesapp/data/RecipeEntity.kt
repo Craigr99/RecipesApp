@@ -9,7 +9,8 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
-@Entity(tableName = "recipes")
+@Entity(tableName = "recipes") // table name
+// set up recipe class
 data class RecipeEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Int,

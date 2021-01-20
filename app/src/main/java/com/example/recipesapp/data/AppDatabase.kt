@@ -13,6 +13,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun recipeDao(): RecipeDao?
 
     companion object {
+        // Instance of the database
         private var INSTANCE: AppDatabase? = null
 
         fun getInstance(context: Context): AppDatabase? {
@@ -21,7 +22,7 @@ abstract class AppDatabase : RoomDatabase() {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         AppDatabase::class.java,
-                        "recipesapp.db"
+                        "recipesapp.db" // name of the db
                     ).fallbackToDestructiveMigration().build()
                 }
             }

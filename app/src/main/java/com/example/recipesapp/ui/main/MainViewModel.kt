@@ -16,15 +16,16 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
 
     // Reference to database
     private val database = AppDatabase.getInstance(app)
+    // set recipesList to all recipes in the db using getAll()
     val recipesList = database?.recipeDao()?.getAll()
 
     fun addSampleData() {
         viewModelScope.launch {
             // run code in a background thread
             withContext(Dispatchers.IO) {
-                //reference to sample data
+                //reference to sample recipes data
                 val sampleRecipes = SampleDataProvider.getRecipes()
-                //insert data to database
+                //insert data to the database using insertAll() and passing in sampleRecipes
                 database?.recipeDao()?.insertAll(sampleRecipes)
             }
         }
@@ -34,7 +35,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             // run code in a background thread
             withContext(Dispatchers.IO) {
-                // Delete selected recipes
+                // Delete the selected recipes passing selectedRecipes into deleteRecipes()
                 database?.recipeDao()?.deleteRecipes(selectedRecipes)
             }
         }
@@ -43,6 +44,7 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun deleteAllRecipes() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                // Delete all the recipes
                 database?.recipeDao()?.deleteAll()
             }
         }

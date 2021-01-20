@@ -29,15 +29,16 @@ class EditorFragment : Fragment() {
         //Get reference to activity that owns this fragment
         (activity as AppCompatActivity).supportActionBar?.let {
             // if supportActionBar not null
-            it.setHomeButtonEnabled(true)
+            it.setHomeButtonEnabled(true)  // display home button
             it.setDisplayShowHomeEnabled(true)
             it.setDisplayHomeAsUpEnabled(true)
-            it.setHomeAsUpIndicator(R.drawable.ic_back)
+            it.setHomeAsUpIndicator(R.drawable.ic_back) // set to arrow icon
         }
         setHasOptionsMenu(true)
 
         // set title of activity
         requireActivity().title =
+                // if recipe id = null
             if (args.recipeId == NEW_RECIPE_ID) {
                 getString(R.string.new_recipe)
             } else {
@@ -62,6 +63,7 @@ class EditorFragment : Fragment() {
 
         )
 
+        // set up observer for the current recipe
         viewModel.currentRecipe.observe(viewLifecycleOwner, Observer {
             // get state values
             val savedString = savedInstanceState?.getString(RECIPE_TEXT_KEY)
@@ -73,12 +75,13 @@ class EditorFragment : Fragment() {
             binding.editQuality.setText(it.quality)
             binding.editName.setSelection(cursorPosition)
         })
+        // Go to view model and call getRecipeById() and pass in recipeId
         viewModel.getRecipeById(args.recipeId)
 
         return binding.root
     }
 
-    //Handle home button
+    //Handle home button selection
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> saveAndReturn()
@@ -86,13 +89,14 @@ class EditorFragment : Fragment() {
         }
     }
 
+    // Save data when user goes back
     private fun saveAndReturn(): Boolean {
         // close keyboard
         val imm = requireActivity()
             .getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
 
-        // Get text value user has typed
+        // Get text value user has typed, then set the values
         viewModel.currentRecipe.value?.name = binding.editName.text.toString()
         viewModel.currentRecipe.value?.description = binding.editDesc.text.toString()
         viewModel.currentRecipe.value?.difficulty = binding.editDifficulty.text.toString()
@@ -104,6 +108,7 @@ class EditorFragment : Fragment() {
         return true
     }
 
+    // For saving state
     override fun onSaveInstanceState(outState: Bundle) {
         with(binding.editName) {
             outState.putString(RECIPE_TEXT_KEY, text.toString())

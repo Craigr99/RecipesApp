@@ -6,15 +6,15 @@ import androidx.room.*
 @Dao
 interface RecipeDao {
 
-    //tell room what to do - insert or update existing
+    //tell room what to do - insert or update existing recipe
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertRecipe(recipe: RecipeEntity)
+    fun insertRecipe(recipe: RecipeEntity) // insert recipe passing in a recipe entity
 
-    // Insert multiple
+    // Insert multiple recipes using a list of recipe entities
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(recipes: List<RecipeEntity>)
 
-    // Get all recipes
+    // Get all recipes ordering by date
     @Query("SELECT * FROM recipes ORDER BY date ASC")
     fun getAll(): LiveData<List<RecipeEntity>>
 
@@ -26,14 +26,15 @@ interface RecipeDao {
     @Query("SELECT COUNT(*) from recipes")
     fun getCount(): Int
 
-    // Delete recipes
+    // Delete the selected recipes
     @Delete
     fun deleteRecipes(selectedRecipes: List<RecipeEntity>) : Int
 
-    // Delete all recipes
+    // Delete all recipes from db
     @Query("DELETE FROM recipes")
     fun deleteAll():Int
 
+    // Delete a single recipe
     @Delete
     fun deleteRecipe(recipe: RecipeEntity)
 }

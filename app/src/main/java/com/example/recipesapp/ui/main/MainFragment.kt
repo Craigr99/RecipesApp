@@ -65,6 +65,7 @@ class MainFragment : Fragment(),
             adapter.selectedRecipes.addAll(selectedRecipes ?: emptyList())
         })
 
+        // When user clicks FAB, call editRecipe()
         binding.floatingActionButton.setOnClickListener {
             editRecipe(NEW_RECIPE_ID)
         }
@@ -77,18 +78,20 @@ class MainFragment : Fragment(),
         val menuId =
             // If the adapter is initialized + selected notes list is not empty
             if (this::adapter.isInitialized && adapter.selectedRecipes.isNotEmpty()) {
-                R.menu.menu_main_selected_items
+                R.menu.menu_main_selected_items // use selected items menu
             } else {
                 R.menu.menu_main
             }
 
+        // inflate the menu
         inflater.inflate(menuId, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    // When item is selected in the menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            // Look for menu item
+            // Look for menu item -> run the function
             R.id.action_sample_data -> addSampleData()
             R.id.action_delete -> deleteSelectedRecipes()
             R.id.action_delete_all -> deleteAllRecipes()
@@ -97,11 +100,13 @@ class MainFragment : Fragment(),
     }
 
     private fun deleteAllRecipes(): Boolean {
+        // Go to view model and call deleteAllRecipes()
         viewModel.deleteAllRecipes()
         return true
     }
 
     private fun deleteSelectedRecipes(): Boolean {
+        // Go to view model and call deleteRecipes() passing in the selected recipes
         viewModel.deleteRecipes(adapter.selectedRecipes)
         // Reset the menu to original state
         Handler(Looper.getMainLooper()).postDelayed({
@@ -112,6 +117,7 @@ class MainFragment : Fragment(),
     }
 
     private fun addSampleData(): Boolean {
+        // Go to view model and call addSampleData()
         viewModel.addSampleData()
         return true
     }
@@ -119,6 +125,7 @@ class MainFragment : Fragment(),
     override fun editRecipe(recipeId: Int) {
         // receive recipe id
         Log.i(TAG, "onItemClick: RECEIVED RECIPE ID $recipeId")
+        // set action = actionEditRecipe and pass in recipe id
         val action = MainFragmentDirections.actionEditRecipe(recipeId)
         // get reference to nav host
         findNavController().navigate(action)
