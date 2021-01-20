@@ -3,12 +3,12 @@ package com.example.recipesapp
 import android.app.Activity
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -21,6 +21,10 @@ class EditorFragment : Fragment() {
     private lateinit var viewModel: EditorViewModel
     private val args: EditorFragmentArgs by navArgs()
     private lateinit var binding: EditorFragmentBinding
+
+    //reference to adapter
+    private lateinit var adapter: RecipesListAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,12 +85,36 @@ class EditorFragment : Fragment() {
         return binding.root
     }
 
+    // Init options menu
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        val menuId =
+            R.menu.menu_main_selected_items // use selected items menu (bin icon)
+        // inflate the menu
+        inflater.inflate(menuId, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     //Handle home button selection
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> saveAndReturn()
+            R.id.action_delete -> deleteRecipe()
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun deleteRecipe(): Boolean {
+        // Go to view model and call deleteRecipe() passing in the selected recipe
+        viewModel.deleteRecipe()
+        // Show toast message
+        Toast.makeText(
+            getActivity(), "Recipe deleted!",
+            Toast.LENGTH_LONG
+        ).show();
+        findNavController().navigateUp() // Go back to main fragment
+
+        return true
+
     }
 
     // Save data when user goes back
@@ -105,6 +133,7 @@ class EditorFragment : Fragment() {
         viewModel.updateRecipe()
 
         findNavController().navigateUp() // Go back to main fragment
+
         return true
     }
 

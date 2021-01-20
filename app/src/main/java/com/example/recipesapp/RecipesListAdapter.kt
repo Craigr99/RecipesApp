@@ -16,6 +16,8 @@ class RecipesListAdapter(
     // selectedRecipes = array of recipe entities
     val selectedRecipes = arrayListOf<RecipeEntity>()
 
+    val selectedRecipe = RecipeEntity()
+
     inner class ViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
         val binding = ListItemBinding.bind(itemView)

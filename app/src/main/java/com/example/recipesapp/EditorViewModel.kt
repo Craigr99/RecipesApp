@@ -1,6 +1,7 @@
 package com.example.recipesapp
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -35,6 +36,21 @@ class EditorViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    fun deleteRecipe() {
+        currentRecipe.value?.let {
+            Log.i("DELETE", currentRecipe.value.toString())
+            Log.i("DELETE", it.id.toString())
+            viewModelScope.launch {
+                // run code in a background thread
+                withContext(Dispatchers.IO) {
+                    // Delete the selected recipe passing selectedRecipe into deleteRecipe()
+                    database?.recipeDao()?.deleteRecipe(it)
+                    Thread.sleep(2000)
+                }
+            }
+        }
+    }
+
     fun updateRecipe() {
         // use current recipe value
         currentRecipe.value?.let {
@@ -45,7 +61,7 @@ class EditorViewModel(app: Application) : AndroidViewModel(app) {
             it.quality = it.quality.trim()
 
             // If there is no recipe found, return
-            if (it.id == NEW_RECIPE_ID && it.name.isEmpty() && it.description.isEmpty() && it.difficulty.isEmpty()  && it.quality.isEmpty()) {
+            if (it.id == NEW_RECIPE_ID && it.name.isEmpty() && it.description.isEmpty() && it.difficulty.isEmpty() && it.quality.isEmpty()) {
                 return
             }
 

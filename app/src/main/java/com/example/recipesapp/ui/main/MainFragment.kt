@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -76,7 +77,7 @@ class MainFragment : Fragment(),
     // Init options menu
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val menuId =
-            // If the adapter is initialized + selected notes list is not empty
+            // If the adapter is initialized + selected recipes list is not empty
             if (this::adapter.isInitialized && adapter.selectedRecipes.isNotEmpty()) {
                 R.menu.menu_main_selected_items // use selected items menu
             } else {
@@ -102,6 +103,10 @@ class MainFragment : Fragment(),
     private fun deleteAllRecipes(): Boolean {
         // Go to view model and call deleteAllRecipes()
         viewModel.deleteAllRecipes()
+        Toast.makeText(
+            getActivity(), "Recipes deleted!",
+            Toast.LENGTH_LONG
+        ).show();
         return true
     }
 
@@ -113,12 +118,26 @@ class MainFragment : Fragment(),
             adapter.selectedRecipes.clear()
             requireActivity().invalidateOptionsMenu()
         }, 100)
+
+        // Toast message
+        Toast.makeText(
+            getActivity(), "Selected Recipes deleted!",
+            Toast.LENGTH_LONG
+        ).show();
+
         return true
     }
 
     private fun addSampleData(): Boolean {
         // Go to view model and call addSampleData()
         viewModel.addSampleData()
+
+        // Toast message
+        Toast.makeText(
+            getActivity(), "Sample Recipes added!",
+            Toast.LENGTH_LONG
+        ).show();
+
         return true
     }
 
