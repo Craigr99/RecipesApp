@@ -40,6 +40,7 @@ class RecipesListAdapter(
             recipeText.text = recipe.name // set recipeText in list item to the actual text
             difficultyText.text = recipe.difficulty + "/10"
             qualityText.text = recipe.quality + "/10"
+            timeText.text = recipe.time + " mins"
 
             root.setOnClickListener {
                 // Notify listener class that user has clicked on this recipe

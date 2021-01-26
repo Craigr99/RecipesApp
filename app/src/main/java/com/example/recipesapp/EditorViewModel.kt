@@ -59,16 +59,18 @@ class EditorViewModel(app: Application) : AndroidViewModel(app) {
             it.description = it.description.trim()
             it.difficulty = it.difficulty.trim()
             it.quality = it.quality.trim()
+            it.steps = it.steps.trim()
+            it.time = it.time.trim()
 
             // If there is no recipe found, return
-            if (it.id == NEW_RECIPE_ID && it.name.isEmpty() && it.description.isEmpty() && it.difficulty.isEmpty() && it.quality.isEmpty()) {
+            if (it.id == NEW_RECIPE_ID && it.name.isEmpty() && it.description.isEmpty() && it.difficulty.isEmpty() && it.quality.isEmpty() && it.steps.isEmpty() && it.time.isEmpty()) {
                 return
             }
 
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
                     // if all values are empty, delete recipe. else insert new recipe
-                    if (it.name.isEmpty() && it.description.isEmpty() && it.difficulty.isEmpty() && it.quality.isEmpty()) {
+                    if (it.name.isEmpty() && it.description.isEmpty() && it.difficulty.isEmpty() && it.quality.isEmpty() && it.steps.isEmpty() && it.time.isEmpty()) {
                         database?.recipeDao()?.deleteRecipe(it)
                     } else {
                         database?.recipeDao()?.insertRecipe(it)

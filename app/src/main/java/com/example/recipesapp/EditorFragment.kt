@@ -77,6 +77,8 @@ class EditorFragment : Fragment() {
             binding.editDesc.setText(it.description)
             binding.editDifficulty.setText(it.difficulty)
             binding.editQuality.setText(it.quality)
+            binding.editSteps.setText(it.steps)
+            binding.editTime.setText(it.time) 
             binding.editName.setSelection(cursorPosition)
         })
         // Go to view model and call getRecipeById() and pass in recipeId
@@ -129,6 +131,8 @@ class EditorFragment : Fragment() {
         viewModel.currentRecipe.value?.description = binding.editDesc.text.toString()
         viewModel.currentRecipe.value?.difficulty = binding.editDifficulty.text.toString()
         viewModel.currentRecipe.value?.quality = binding.editQuality.text.toString()
+        viewModel.currentRecipe.value?.steps = binding.editSteps.text.toString()
+        viewModel.currentRecipe.value?.time = binding.editTime.text.toString()
         // call updateRecipe() in view model
         viewModel.updateRecipe()
 
