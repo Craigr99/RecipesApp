@@ -1,95 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/carView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    cardView:cardCornerRadius="10dp"
+    cardView:cardElevation="8dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
+        android:id="@+id/ScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".EditorFragment">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edit_name"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="@string/enter_recipe_name"
-            android:inputType="textCapSentences|textMultiLine"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill"
-            tools:text="Enter recipe name" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            tools:context=".EditorFragment">
 
-        <EditText
-            android:id="@+id/edit_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Enter recipe description"
-            android:inputType="textCapSentences|textMultiLine"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill"
-            tools:text="Enter description" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edit_difficulty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Enter recipe diffuculty (1-10)"
-            android:inputType="textCapSentences|textMultiLine"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill"
-            tools:text="Enter recipe difficulty (1-10)" />
+                <EditText
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="16dp"
+                    android:ems="10"
+                    android:hint="@string/enter_recipe_name"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    cardView:layout_constraintStart_toStartOf="parent"
+                    cardView:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="Autofill"
+                    tools:text="Enter recipe name" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edit_quality"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Enter recipe quality (1-10)"
-            android:inputType="textCapSentences|textMultiLine"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill"
-            tools:text="Enter recipe quality (1-10)" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/desc_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/edit_steps"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Enter steps"
-            android:inputType="textCapSentences|textMultiLine"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill"
-            tools:text="Enter steps" />
+                <EditText
+                    android:id="@+id/edit_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="16dp"
+                    android:ems="10"
+                    android:hint="Enter recipe description"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    cardView:layout_constraintStart_toStartOf="parent"
+                    cardView:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="Autofill"
+                    tools:text="Enter recipe description" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edit_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:hint="Enter time (mins)"
-            android:inputType="textCapSentences|textMultiLine"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="Autofill"
-            tools:text="Enter time (mins)" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/difficulty_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </LinearLayout>
-</ScrollView>
+                <EditText
+                    android:id="@+id/edit_difficulty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="16dp"
+                    android:ems="10"
+                    android:hint="Enter recipe difficulty (1-10)"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    cardView:layout_constraintStart_toStartOf="parent"
+                    cardView:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="Autofill"
+                    tools:text="Enter recipe difficulty" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/qualilty_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_quality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="16dp"
+                    android:ems="10"
+                    android:hint="Enter recipe quality (1-10)"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    cardView:layout_constraintStart_toStartOf="parent"
+                    cardView:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="Autofill"
+                    tools:text="Enter recipe quality" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/steps_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_steps"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="16dp"
+                    android:ems="10"
+                    android:gravity="top|left"
+                    android:hint="Enter recipe steps"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:lines="10"
+                    android:minLines="5"
+                    android:scrollbars="vertical"
+                    android:scrollHorizontally="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    cardView:layout_constraintStart_toStartOf="parent"
+                    cardView:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="Autofill"
+                    tools:text="Enter recipe steps" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/time_text_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edit_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="16dp"
+                    android:ems="10"
+                    android:hint="Enter recipe time (mins)"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    cardView:layout_constraintStart_toStartOf="parent"
+                    cardView:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="Autofill"
+                    tools:text="Enter recipe time (mins)" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.cardview.widget.CardView>
+
